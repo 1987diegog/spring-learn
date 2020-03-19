@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}"></title>
+</head>
+<body>
+    <h1 th:text="${title}"></h1>
+
+    <span th:if="${user.name}" th:text="${user.name}"></span>
+    <span th:if="${user.name == null}" th:text="'User without name'"></span>
+
+    <span th:if="${user.lastname}" th:text="${user.lastname}"></span><br>
+    <span th:if="${user.lastname == null}" th:text="'User without lastname'"></span>
+
+    <span th:if="${user.email}" th:text="${user.email}"></span><br>
+    <span th:if="${user.email == null}">User without email</span>
+
+</body>
+</html>
