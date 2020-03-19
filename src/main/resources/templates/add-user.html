@@ -14,6 +14,13 @@
     <li>
         <a th:href="@{/app/view(name='Irina')}"> Ir a View con Irina</a>
     </li>
+    <li>
+        <a th:href="@{/app/params(name='Irina', age=32, married=true)}"> Many params</a>
+    </li>
+
+    <li>
+        <a th:href="@{/app/paramsHttpServlet(name='Irina', age=32, married=true)}"> Many params HttpServletRequest</a>
+    </li>
 
 </ul>
 

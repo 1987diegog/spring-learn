@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uy.com.demente.ideas.words.models.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +58,33 @@ public class UsersController {
     public String view(@RequestParam(value = "name", required = false) String name, Model model) {
         model.addAttribute("data", "View name: " + name);
         return "view";
+    }
+
+    @GetMapping("/params")
+    public String view(@RequestParam(value = "name", required = false) String name,
+                       @RequestParam(value = "age", required = false) Integer age,
+                       @RequestParam(value = "married", required = false) Boolean married,
+                       Model model) {
+
+        model.addAttribute("paramName", "Name: " + name);
+        model.addAttribute("paramAge", "Age: " + age);
+        model.addAttribute("paramMarried", "Married: " + ((married) ? "Si":"No"));
+
+        return "params";
+    }
+
+    @GetMapping("/paramsHttpServlet")
+    public String view(HttpServletRequest request, Model model) {
+
+        String name = request.getParameter("name");
+        Integer age = Integer.valueOf(request.getParameter("age"));
+        Boolean married = Boolean.valueOf(request.getParameter("married"));
+
+        model.addAttribute("paramName", "Name: " + name);
+        model.addAttribute("paramAge", "Age: " + age);
+        model.addAttribute("paramMarried", "Married: " + ((married) ? "Si":"No"));
+
+        return "params";
     }
 
     @GetMapping("/add-user")
