@@ -1,11 +1,11 @@
-package uy.com.demente.ideas.words;
+package com.demente.ideas.learn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WordsMeaningsApplication {
+public class LearnSpringApplication {
 	public static void main(String[] args) {
-		SpringApplication.run(WordsMeaningsApplication.class, args);
+		SpringApplication.run(LearnSpringApplication.class, args);
 	}
 }

@@ -1,4 +1,4 @@
-package uy.com.demente.ideas.words.models;
+package com.demente.ideas.learn.models;
 
 public class User {
 

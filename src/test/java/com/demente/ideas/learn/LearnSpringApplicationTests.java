@@ -1,10 +1,10 @@
-package uy.com.demente.ideas.words;
+package com.demente.ideas.learn;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WordsMeaningsApplicationTests {
+class LearnSpringApplicationTests {
 
 	@Test
 	void contextLoads() {

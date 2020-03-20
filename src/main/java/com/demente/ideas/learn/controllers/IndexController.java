@@ -1,13 +1,11 @@
-package uy.com.demente.ideas.words.controllers;
+package com.demente.ideas.learn.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import uy.com.demente.ideas.words.models.User;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
