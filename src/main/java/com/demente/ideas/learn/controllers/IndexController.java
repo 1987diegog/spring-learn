@@ -13,9 +13,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/app")
-// @PropertySource:
-// Para indicar un determinado .properties, si no se indica utiliza el de defecto (application.properties)
-@PropertySource(name = "textProperties", value = "text.properties")
 public class IndexController {
 
     // @Value: Inyeccion de dependecia (texto) a traves de .properties
@@ -38,7 +35,7 @@ public class IndexController {
     }
 
     // @RequestMapping(path = "/index", method = RequestMethod.GET)
-    @GetMapping(path = {"", "/", "/index", "/home"})
+    @GetMapping(path = {"", "/", "/index"})
     public String index(Model model) {
         model.addAttribute("wellcome", msgWellcome);
         // debe retornar el nombre de la vista, en este caso se asume que tendremos
