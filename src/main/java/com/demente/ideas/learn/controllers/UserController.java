@@ -2,18 +2,20 @@ package com.demente.ideas.learn.controllers;
 
 import com.demente.ideas.learn.models.entity.User;
 import com.demente.ideas.learn.models.services.IUserService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
-import java.util.Arrays;
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/app")
+@SessionAttributes("user")
 public class UserController {
 
     // INYECCION DE DEPENDENCIAS 1
@@ -83,27 +85,65 @@ public class UserController {
         model.addAttribute("title", "Profile: " + user.getName());
         model.addAttribute("user", user);
 
-        return "profile";
+        return "user/profile";
     }
 
     @GetMapping("/user")
     public String getUser(Model model) {
-
-        User user = userService.getUser();
+        User user = userService.getMockUser();
         model.addAttribute("title", "Profile: " + user.getName());
         model.addAttribute("user", user);
-
-        return "profile";
+        return "user/profile";
     }
 
     @GetMapping("/users")
     public String userList(Model model) {
-
         model.addAttribute("title", "User list");
         model.addAttribute("users", userService.findAll());
-        return "user-list";
+        return "user/list";
     }
 
+    @GetMapping("/user-form")
+    public String crear(Model model) {
+        User user = new User();
+        model.addAttribute("title", "User form");
+        model.addAttribute("user", user);
+        return "user/form";
+    }
 
+    @PostMapping("/user-form")
+    public String guardar(@Valid User user, BindingResult result, Model model, SessionStatus status) {
 
+        if (result.hasErrors()) {
+            model.addAttribute("title", "User form");
+            model.addAttribute("user", user); // puede omitirse ya que se pasa implicitamente cuando
+            // da error (binging result) si el attributo tiene el mismo nombre, en este caso "user"
+            return "user/form";
+        }
+
+        userService.save(user);
+        // eliminara el objeto 'user' de la session
+        status.setComplete();
+        return "redirect:users";
+    }
+
+    @GetMapping(value = "/user-form/{id}")
+    public String editar(@PathVariable(value = "id") Long id, Model model) {
+        try {
+            User user = null;
+            user = userService.find(id);
+            model.addAttribute("title", "User form edit");
+            model.addAttribute("user", user);
+            return "user/form";
+        } catch (NotFoundException e) {
+            model.addAttribute("title", e.getMessage());
+            return "user/form";
+        }
+    }
+
+    @GetMapping(value = "/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id") Long id) {
+        userService.delete(id);
+        return "redirect:/app/users";
+    }
 }

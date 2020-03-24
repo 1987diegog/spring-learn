@@ -22,7 +22,7 @@ public class InjectionConstructorController {
     @GetMapping("/user")
     public String getUser(Model model) {
 
-        User user = userService.getUser();
+        User user = userService.getMockUser();
         model.addAttribute("title", "Profile: " + user.getName());
         model.addAttribute("user", user);
 

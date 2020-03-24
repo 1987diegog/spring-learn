@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+// Al extender de JpaRepository, inmediatamente se transforma en una interface especial, la cual
+// ya es un componente de Spring y sera tratada como tal, por lo tanto, no es necesario
+// decorar la interface con @Repository, la misma podra ser inyectada en cualquier bean.
 public interface IUserRepository extends JpaRepository<User, Long> {
     /**
      * Query generated dynamically using Spring and the reserved name findBy

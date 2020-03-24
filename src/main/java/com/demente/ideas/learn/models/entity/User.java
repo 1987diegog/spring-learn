@@ -3,8 +3,12 @@ package com.demente.ideas.learn.models.entity;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -19,10 +23,23 @@ public class User implements Serializable {
     // el motor de BD, por eje; auto incremental
     private Long id;
 
+    @NotEmpty
     private String username;
+
+    @NotEmpty
     private String name;
+
+    @NotEmpty
     private String lastname;
+
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
 
     // Los atributos createdAt y updatedAt con sus respectivas annotations @CreatedDate y @LastModifiedDate
     // seran manejados por Spring Data utilizando JPA Auditing, para activar esta funcionalidad
@@ -91,6 +108,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public Date getCreatedAt() {
