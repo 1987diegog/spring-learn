@@ -1,9 +1,6 @@
 server:
   port: 8090
 spring:
-  h2:
-    console:
-      enabled: true
   datasource:
     url: jdbc:mysql://localhost/db_springboot?serverTimezone=Europe/Madrid&useSSL=false
     username: root

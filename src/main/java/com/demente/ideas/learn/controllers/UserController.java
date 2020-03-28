@@ -96,7 +96,7 @@ public class UserController {
         return "user/profile";
     }
 
-    @GetMapping("/users")
+    @GetMapping(value = {"/users", "/"})
     public String userList(Model model) {
         model.addAttribute("title", "User list");
         model.addAttribute("users", userService.findAll());
