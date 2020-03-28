@@ -24,4 +24,9 @@ public class HomeController {
     public String homeForward() {
         return "forward:/app/index";
     }
+
+    @GetMapping(path = {"/", ""})
+    public String redirectToHome() {
+        return "redirect:/app/users";
+    }
 }

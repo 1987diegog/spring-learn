@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${title}"></title>
-</head>
+<head th:replace="layout/layout :: head"></head>
 <body>
-
+<header th:replace="layout/layout :: header"></header>
     <h1 th:text="${title}"></h1>
 
     <span th:if="${user.name}" th:text="${user.name}"></span>

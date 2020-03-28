@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -112,7 +113,8 @@ public class UserController {
     }
 
     @PostMapping("/user-form")
-    public String guardar(@Valid User user, BindingResult result, Model model, SessionStatus status) {
+    public String guardar(@Valid User user, BindingResult result, Model model, RedirectAttributes flash,
+                          SessionStatus status) {
 
         if (result.hasErrors()) {
             model.addAttribute("title", "User form");
@@ -120,15 +122,16 @@ public class UserController {
             // da error (binging result) si el attributo tiene el mismo nombre, en este caso "user"
             return "user/form";
         }
-
+        String message = (user.getId() != null) ? "Usuario editado con exito!" : "Usuario creado con exito!";
         userService.save(user);
         // eliminara el objeto 'user' de la session
         status.setComplete();
+        flash.addFlashAttribute("success", message);
         return "redirect:users";
     }
 
     @GetMapping(value = "/user-form/{id}")
-    public String editar(@PathVariable(value = "id") Long id, Model model) {
+    public String editar(@PathVariable(value = "id") Long id, Model model, RedirectAttributes flash) {
         try {
             User user = null;
             user = userService.find(id);
@@ -136,14 +139,15 @@ public class UserController {
             model.addAttribute("user", user);
             return "user/form";
         } catch (NotFoundException e) {
-            model.addAttribute("title", e.getMessage());
-            return "user/form";
+            flash.addFlashAttribute("error", e.getMessage());
+            return "redirect:/app/users";
         }
     }
 
     @GetMapping(value = "/eliminar/{id}")
-    public String eliminar(@PathVariable(value = "id") Long id) {
+    public String eliminar(@PathVariable(value = "id") Long id, RedirectAttributes flash) {
         userService.delete(id);
+        flash.addFlashAttribute("success", "Usuario eliminado con exito!");
         return "redirect:/app/users";
     }
 }

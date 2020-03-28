@@ -36,7 +36,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // va a controlar si el usuario tiene permisos para permitirle continuar, sino, negara el acceso y
         // redirigira a la pagina de Login.
         http.authorizeRequests()
-                .antMatchers("/", "/css/**", "js/**", "images/**", "/app/users").permitAll()
+                .antMatchers("/", "/css/**", "/js/**", "/images/**", "/app/users").permitAll()
                 .antMatchers("/upload/**").hasAnyRole("USER")
                 .antMatchers("/app/user-form/**").hasAnyRole("ADMIN")
                 .antMatchers("/factura/**").hasAnyRole("ADMIN")

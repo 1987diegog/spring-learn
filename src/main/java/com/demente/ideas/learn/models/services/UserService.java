@@ -65,7 +65,7 @@ public class UserService implements IUserService {
     @Override
     @Transactional(readOnly=true)
     public User find(Long id) throws NotFoundException {
-        return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException("user not found"));
+        return this.userRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     @Override
