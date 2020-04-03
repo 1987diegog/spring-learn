@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "SPRING_LEARN_T_USERS")
@@ -24,21 +25,35 @@ public class User implements Serializable {
     private Long id;
 
     @NotEmpty
+    @Column(unique = true, length = 45)
     private String username;
 
     @NotEmpty
     private String name;
+
+    @Column(length = 60)
+    private String password;
 
     @NotEmpty
     private String lastname;
 
     @NotEmpty
     @Email
+    @Column(unique = true)
     private String email;
+
+    @NotNull
+    @Column(nullable = false)
+    private Boolean enabled;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Role> roles;
 
     @NotNull
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(nullable = false)
     private Date birthday;
 
     // Los atributos createdAt y updatedAt con sus respectivas annotations @CreatedDate y @LastModifiedDate
@@ -50,17 +65,17 @@ public class User implements Serializable {
     // 2. Activar JPA Auditing (@EnableJpaAuditing) en nuestro main Application, en este
     //    caso en la clase LearnSpringApplication
 
-    @Column(name="CREATED_AT", nullable = false, updatable = false)
+    @Column(name = "CREATED_AT", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
 
-    @Column(name="UPDATED_AT", nullable = false)
+    @Column(name = "UPDATED_AT", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
 
-    public User () {
+    public User() {
     }
 
     public User(String username, String name, String lastname, String email) {
@@ -94,12 +109,36 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
     public String getLastname() {
         return lastname;
     }
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public String getEmail() {

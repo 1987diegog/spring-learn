@@ -12,7 +12,7 @@ public class HomeController {
     // al proyecto como por ejemplo https://google.com.
     @GetMapping(path = {"/home/redirect"})
     public String homeRedirect() {
-        return "redirect:/app/index";
+        return "redirect:/index";
         // return "redirect:https://google.com";
     }
 
@@ -22,11 +22,11 @@ public class HomeController {
     // para rutas de controladores, rutas dentro del mismo proyecto, no para rutas externas.
     @GetMapping(path = {"/home/forward"})
     public String homeForward() {
-        return "forward:/app/index";
+        return "º:/index";
     }
 
-    @GetMapping(path = {"/", ""})
-    public String redirectToHome() {
-        return "redirect:/app/users";
-    }
+    //@GetMapping(path = {"/", ""})
+    //public String redirectToHome() {
+    //    return "forward:/users";
+    //}
 }

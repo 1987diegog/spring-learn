@@ -21,7 +21,7 @@ public class LoginController {
             // se evita que se inicie la secion varias veces, ya que
             // si principal es != null ya existe un login realizado,
             // por lo tanto, se redirige a la pantalla de inicio.
-            return "redirect:/app/users";
+            return "redirect:/users";
         }
 
         if(logout != null) {

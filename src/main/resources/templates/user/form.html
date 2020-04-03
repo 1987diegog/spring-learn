@@ -17,7 +17,7 @@
                     </ul>
                 </div>
             -->
-            <form th:action="@{/app/user-form}" th:object="${user}" method="post">
+            <form th:action="@{/user-form}" th:object="${user}" method="post">
                 <table class="table table-bordered">
                     <div class="form-group">
                         <label class="col-sm-2 col-form-label">Username</label>
@@ -69,8 +69,10 @@
                             <input type="submit" value="Guardar" class="btn btn-primary mt-4"/>
                         </div>
                     </div>
+                    <input type="checkbox" th:field="*{enabled}" th:value="true"/>
                 </table>
                 <input type="hidden" th:field="*{id}"/>
+
             </form>
         </div>
     </div>

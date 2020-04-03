@@ -13,6 +13,16 @@ import java.util.Optional;
 // ya es un componente de Spring y sera tratada como tal, por lo tanto, no es necesario
 // decorar la interface con @Repository, la misma podra ser inyectada en cualquier bean.
 public interface IUserRepository extends JpaRepository<User, Long> {
+
+
+    /**
+     * Query generated dynamically using Spring and the reserved name findBy
+     *
+     * @param username
+     * @return
+     */
+    User findByUsername(String username);
+
     /**
      * Query generated dynamically using Spring and the reserved name findBy
      *
@@ -52,4 +62,5 @@ public interface IUserRepository extends JpaRepository<User, Long> {
      */
 	@Query("SELECT u FROM User u WHERE u.createdAt >=:from AND u.createdAt <=:to")
     List<User> findByFilter(@Param("from") Date from, @Param("to") Date to);
+
 }

@@ -2,7 +2,7 @@ server:
   port: 8090
 spring:
   datasource:
-    url: jdbc:mysql://localhost/db_springboot?serverTimezone=Europe/Madrid&useSSL=false
+    url: jdbc:mysql://localhost/db_springboot?serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true&useSSL=false
     username: root
     password: admin
     driver-class-name: com.mysql.cj.jdbc.Driver
